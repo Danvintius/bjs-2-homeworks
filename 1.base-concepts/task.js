@@ -20,5 +20,13 @@ function solveEquation(a,b,c) {
 
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-  
+  if (percent > 0 && percent <= 100) {
+    let P = percent / 100 / 12;
+    let S = amount - contribution;
+    let monthPay= S * (P + (P / ((Math.pow(1 + P, countMonth)) - 1)));
+    let result = (monthPay * countMonth).toFixed(2);
+    console.log(result);
+  } else {
+    return false;
+  }
 }
