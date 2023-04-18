@@ -64,19 +64,12 @@ class Library {
   }
 
   findBookBy(type, value) {
-    for (let i = 0; i < this.books.length; i++) {
-    if (type == "name" && value == this.books[i].name) {
-      return this.books[i];
-    } else if (type == "type" && value == this.books[i].type) {
-      return this.books[i];
-    } else if (type == "author" && value == this.books[i].author) {
-      return this.books[i];
-    } else if (type == "releaseDate" && value == this.books[i].releaseDate) {
-      return this.books[i];
-    } else {
-      return null;
-    }
-    }
+    const book = this.books.find(book => book[type] === value);
+      if (book) {
+        return book;
+      } else {
+        return null;
+      }
   }
 
   giveBookByName(bookName) {
