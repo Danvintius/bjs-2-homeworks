@@ -11,20 +11,20 @@ class PrintEditionItem {
     this.state = this.state * 1.5;
   }
 
-  setState(stateNumber) {
+  set state(stateNumber) {
     if (stateNumber < 0) {
-      this.state = 0;
+      this._state = 0;
   }
     else if (stateNumber > 100) {
-      this.state = 100;
+      this._state = 100;
   } else {
-    this.state = stateNumber;
+    this._state = stateNumber;
     }
-}
-
-  getState() {
-    return this.state;
-}
+  }
+  
+  get state() {
+    return this._state;
+}  
 }
 
 class Magazine extends PrintEditionItem {
@@ -32,10 +32,10 @@ class Magazine extends PrintEditionItem {
 }
 
 class Book extends PrintEditionItem {
-  constructor(author,releaseDate,pagesCount,state,type) {
-    super(releaseDate,pagesCount,state,type);
+  constructor(author,name,releaseDate,pagesCount,state,type) {
+    super(name,releaseDate,pagesCount,state,type);
     this.author = author;
-    type = "book";
+    this.type = "book";
 }
 }
 
@@ -49,4 +49,44 @@ class FantasticBook extends Book {
 
 class DetectiveBook extends Book {
   type = "detective";
+}
+
+class Library {
+  constructor(name, books) {
+    this.name = name;
+    this.books = [];
+  }
+
+   addBook(book) {
+    if (book.state > 30) {
+      this.books.push(book);
+    }
+  }
+
+  findBookBy(type, value) {
+    for (let i = 0; i < this.books.length; i++) {
+    if (type == "name" && value == this.books[i].name) {
+      return this.books[i];
+    } else if (type == "type" && value == this.books[i].type) {
+      return this.books[i];
+    } else if (type == "author" && value == this.books[i].author) {
+      return this.books[i];
+    } else if (type == "releaseDate" && value == this.books[i].releaseDate) {
+      return this.books[i];
+    } else {
+      return null;
+    }
+    }
+  }
+
+  giveBookByName(bookName) {
+    for (let i = 0; i < this.books.length; i++) {
+      if (this.books[i].name == bookName) {
+        this.books.delete(this.books[i]);
+        return this.books[i].name;
+      } else {
+        return null;
+      }
+    }
+  }
 }
